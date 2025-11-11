@@ -4,4 +4,4 @@ This ChatBot is an impactful way to learn about cloud infrastructure, cost manag
 You can also upload .csv files and can extract data from it and can ask questions from the same.  ------
 final.py is the final code, trial.py was former code for checking the same ------
 sample.csv file is the dataset ------
-Used sreamlit to deploy the web-application.
+Used sreamlit to deploy the web-application
