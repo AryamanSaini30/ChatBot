@@ -4,6 +4,9 @@ import os
 from dotenv import load_dotenv
 import pandas as pd # Import pandas
 
+# Set up Streamlit page
+st.set_page_config(page_title="☁️ Cloud Cost Optimizer+", page_icon="💸")
+
 # Load environment variables (API key)
 load_dotenv()
 # --- Safety Check for API Key ---
@@ -13,9 +16,6 @@ if not api_key:
     st.stop() # Stop execution if key is missing
 genai.configure(api_key=api_key)
 # ---------------------------------
-
-# Set up Streamlit page
-st.set_page_config(page_title="☁️ Cloud Cost Optimizer+", page_icon="💸")
 
 # --- Global variable for DataFrame ---
 # Use session state to store the dataframe
@@ -66,7 +66,7 @@ I'm your expert in AWS, Azure, and GCP savings.
 
 # Initialize chat history
 if "chat_history" not in st.session_state:
-    st.session_state.chat_history = [{"role": "model", "parts": [system_message.strip()]}]
+    st.session_state.chat_history = []
 
 # Display chat messages cleanly
 def display_message(role, text):
@@ -122,7 +122,7 @@ if user_input := st.chat_input("Ask about your data or general cloud costs..."):
     # --------------------------------
 
     # Send history to Gemini model
-    model = genai.GenerativeModel("gemini-1.5-pro") # Or gemini-1.5-flash for potentially faster/cheaper responses
+    model = genai.GenerativeModel("gemini-2.5-flash", system_instruction=system_message) # Using generic latest flash model
     with st.spinner("Generating response..."):
         try:
             response = model.generate_content(st.session_state.chat_history) # Send modified history
